@@ -67,27 +67,20 @@ namespace WeatherApp
 
         private string[] InitializeCities()
         {
-            Cities = new List<City>
+            Cities = new List<City>();
+
+                string[] ff = System.IO.File.ReadAllLines(@"..\..\cities.txt");
+
+            for (int i = 0; i < ff.Length; i++)
             {
-                new City
+                string[] ss = ff[i].Split(';');
+                Cities.Add(new City
                 {
-                    Name = "Казань",
-                    Latitude = "55.795793",
-                    Longitude = "49.106585"
-                },
-                new City
-                {
-                    Name = "Ижевск",
-                    Latitude = "56.852775",
-                    Longitude = "53.211463"
-                },
-                new City
-                {
-                    Name = "Москва",
-                    Latitude = "55.755773",
-                    Longitude = "37.617761"
-                }
-            };
+                    Name = ss[0].Trim(),
+                    Latitude = ss[1].Trim(),
+                    Longitude = ss[2].Trim()
+                });
+            }
 
             return Cities.Select(x => x.Name).ToArray();
         }
